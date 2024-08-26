@@ -1,0 +1,54 @@
+version: '3.7'
+services:
+  server:
+    container_name: homieServer
+    build:
+      context: '../apps/server/.devcontainer/'
+      dockerfile: Dockerfile
+    ports:
+      - '3000:3000'
+    depends_on:
+      - redis
+      - mongodb
+      - s3
+    volumes:
+      - ..:/workspace:cached
+      - ./.zshrc:/home/node/.zshrc
+      - ./.zsh_history:/home/node/.zsh_history
+      - ./plugins:/home/node/.oh-my-zsh/custom/plugins
+    command: /bin/sh -c "while sleep 1000; do :; done"
+
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - '6379:6379'
+
+  mongodb:
+    container_name: mongodb
+    image: mongo:3.6
+    environment:
+      MONGO_DATA_DIR: /data/db
+      MONGO_LOG_DIR: /dev/null
+    volumes:
+      - mongodb_data_container:/data/db
+    ports:
+      - '27017:27017'
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
+
+  s3:
+    image: minio/minio
+    container_name: s3
+    ports:
+      - '9000:9000'
+      - '9001:9001'
+    volumes:
+      - minio_data_container:/data
+    environment:
+      MINIO_ACCESS_KEY: accessKey
+      MINIO_SECRET_KEY: secretKey
+    command: server /data --address "0.0.0.0:9000" --console-address ":9001"
+
+volumes:
+  mongodb_data_container:
+  minio_data_container:

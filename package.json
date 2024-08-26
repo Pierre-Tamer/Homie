@@ -1,0 +1,30 @@
+{
+  "name": "turborepo-basic-shared",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "dev:server": "turbo run dev --parallel --filter=@dating/server...",
+    "dev:app": "turbo run dev --parallel --filter=@dating/app...",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+  },
+  "devDependencies": {
+    "prettier": "^2.5.1",
+    "turbo": "latest"
+  },
+  "engines": {
+    "npm": ">=7.0.0",
+    "node": ">=14.0.0"
+  },
+  "resolutions": {
+    "**/@types/react": "~17.0.21",
+    "**/react-spring": "8.0.27"
+  },
+  "packageManager": "yarn@1.22.10"
+}

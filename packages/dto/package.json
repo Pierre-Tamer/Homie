@@ -1,0 +1,25 @@
+{
+  "name": "dto",
+  "version": "1.0.0",
+  "description": "",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "scripts": {
+    "start": "ts-node-dev --respawn index.ts",
+    "dev": "tsc --watch",
+    "build": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.13.2"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.24",
+    "ts-node-dev": "^1.1.8",
+    "tsconfig": "*",
+    "typescript": "^4.6.3"
+  }
+}
